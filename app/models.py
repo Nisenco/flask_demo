@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
+    # 该类的__repr__方法用于在调试时打印用户实例
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
