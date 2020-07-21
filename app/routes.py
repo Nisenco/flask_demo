@@ -10,7 +10,7 @@ from werkzeug.urls import url_parse
 @app.route('/index')
 @login_required
 def index():
-    user = {'username': 'Miguel'}
+    # user = {'username': 'Miguel'}
     posts = [
         {
             'author': {'username': 'John'},
@@ -22,7 +22,7 @@ def index():
         }
     ]
     # user=user,
-    return render_template('index.html', title='Home Page',user=user,  posts=posts)
+    return render_template('index.html', title='Home Page', posts=posts)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -38,6 +38,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
+        print(next_page, 'next_page999--')
         if not next_page or url_parse(next_page).encode_netloc() != "":
             next_page = url_for('index')
         return redirect(next_page)

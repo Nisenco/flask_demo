@@ -7,9 +7,7 @@
 <body>
     {% extends "base.html" %}
     {% block content%}
-    {% if %}
-        <h1>User: {{ user.username }}</h1>
-    {% endif %}
+    <h1>User: {{ user.username }}</h1>
     <hr>
     {% for post in posts %}
     <p>
