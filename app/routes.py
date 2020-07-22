@@ -12,7 +12,7 @@ from app.send_mail import send_password_reset_email
 def before_request():
     if current_user.is_authenticated:
         # datetime.now() 本地时间
-        current_user.last_seen = datetime.now()
+        current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
 

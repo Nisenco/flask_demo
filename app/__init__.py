@@ -8,6 +8,7 @@ from flask_migrate import Migrate  # 数据库迁移管理插件
 from flask_login import LoginManager  # 登录管理插件
 from flask_mail import Mail # 实际的邮件发送而言，Flask有一个名为Flask-Mail的流行插件，可以使任务变得非常简单
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -16,6 +17,7 @@ login = LoginManager(app)
 login.login_view = 'login'
 mail = Mail(app)
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 if not app.debug:
     if app.config['MAIL_SERVER']:
         auth = None
