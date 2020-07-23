@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.auth.forms import LoginForm, RegistrationForm,  ResetPasswordRequestForm, ResetPasswordForm
+from app.auth.forms import LoginForm, RegistrationForm,  ResetPasswordRequestForm,\
+    ResetPasswordForm, ResetPassword
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
 from werkzeug.urls import url_parse
@@ -63,6 +64,23 @@ def reset_password_request():
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password_request.html',
                            title='Reset Password', form=form)
+
+
+@bp.route('/reset_password_username', methods=['GET', 'POST'])
+def reset_password_username():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = ResetPassword()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data, email=form.email.data).first()
+        if user is None:
+            flash('username or email is error ,please cheak your username or email')
+            return redirect(url_for('auth.reset_password_username'))
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Congratulations, you has chenged your password!')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/reset_password_username.html', title="Reset Password By Username And Email", form=form)
 
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
