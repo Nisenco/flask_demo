@@ -7,7 +7,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = db_setting.SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # 配置每页显示的条数
-    POSTS_PER_PAGE = 2
+    POSTS_PER_PAGE = 25
     LANGUAGES = ['en', 'es']
     # ADMINS = 'SUCCESSW2M@163.com'
     # todo 增加邮箱配置 未完成
